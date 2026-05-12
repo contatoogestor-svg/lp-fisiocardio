@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fisioterapia Domiciliar em Florianópolis | Fisiocárdio</title>
+    <meta name="description" content="Fisioterapia domiciliar em Florianópolis com equipe especializada. Cardiorrespiratória, neurológica, ortopédica e geriátrica no conforto da sua casa.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #C8102E;
+            --red-light: #E31E3A;
+            --red-dark: #9E0C24;
+            --red-muted: rgba(200,16,46,0.08);
+            --red-border: rgba(200,16,46,0.25);
+            --bg: #ffffff;
+            --surface: #f7f7f7;
+            --surface-2: #ffffff;
+            --surface-3: #f0f0f0;
+            --text: #111111;
+            --text-2: #555555;
+            --text-3: #999999;
+            --border: rgba(0,0,0,0.10);
+            --green: #16a34a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        @media (min-width: 640px) { .container { padding: 0 32px; } }
+        @media (min-width: 1024px) { .container { padding: 0 48px; } }
+
+        .overline { font-size: 11px; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase; color: var(--red); display: block; margin-bottom: 16px; }
+        h1 { font-size: clamp(30px, 6vw, 60px); font-weight: 900; line-height: 1.08; }
+        h2 { font-size: clamp(22px, 4vw, 40px); font-weight: 800; line-height: 1.15; }
+        h3 { font-size: 18px; font-weight: 700; }
+
+        .accent-line { width: 48px; height: 3px; background: var(--red); margin: 20px 0; border-radius: 2px; }
+        .accent-line-center { width: 48px; height: 3px; background: var(--red); margin: 20px auto; border-radius: 2px; }
+
+        section { padding: 80px 0; }
+        @media (min-width: 1024px) { section { padding: 100px 0; } }
+
+        .section-header { text-align: center; margin-bottom: 56px; }
+        .section-header h2 { margin-bottom: 16px; }
+        .section-header p { font-size: 17px; color: var(--text-2); max-width: 560px; margin: 0 auto; line-height: 1.7; }
+
+        /* ── NAV ── */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 12px 0; background: #fff; border-bottom: 1px solid var(--border); transition: box-shadow 0.3s; }
+        nav.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo img { height: 44px; width: auto; display: block; }
+
+        .btn-red { background: linear-gradient(135deg, var(--red-light), var(--red), var(--red-dark)); color: #fff; font-weight: 700; font-size: 13px; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.25s ease; }
+        .btn-red:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(200,16,46,0.3); }
+
+        .btn-outline { background: transparent; color: var(--text); font-weight: 600; font-size: 14px; padding: 12px 24px; border-radius: 10px; border: 1.5px solid var(--border); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s ease; }
+        .btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+        /* ── HERO SLIDESHOW ── */
+        #hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding-top: 70px; overflow: hidden; }
+
+        .hero-slides { position: absolute; inset: 0; z-index: 0; }
+        .hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s ease; }
+        .hero-slide.active { opacity: 1; }
+        .hero-slide::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.52); }
+
+        .hero-dots { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 3; }
+        .hero-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s; border: none; }
+        .hero-dot.active { background: #fff; transform: scale(1.3); }
+
+        .hero-content { position: relative; z-index: 2; max-width: 680px; }
+        .hero-content .overline { color: #fff; opacity: 0.9; font-size: 15px; letter-spacing: 4px; }
+        .hero-content h1 { color: #fff; margin-bottom: 20px; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        .hero-content > p { font-size: clamp(15px, 2vw, 17px); color: rgba(255,255,255,0.85); line-height: 1.75; margin-bottom: 32px; }
+
+        .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+        .btn-hero { background: linear-gradient(135deg, var(--red-light), var(--red), var(--red-dark)); color: #fff; font-weight: 700; font-size: 15px; padding: 15px 26px; border-radius: 10px; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s ease; }
+        .btn-hero:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(200,16,46,0.45); }
+        .btn-hero-outline { background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); color: #fff; font-weight: 600; font-size: 14px; padding: 15px 24px; border-radius: 10px; border: 1.5px solid rgba(255,255,255,0.35); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s ease; }
+        .btn-hero-outline:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.6); }
+
+        .trust-badges { display: flex; flex-wrap: wrap; gap: 16px; }
+        .trust-badge { display: flex; align-items: center; gap: 7px; font-size: 13px; color: rgba(255,255,255,0.8); font-weight: 500; }
+        .trust-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+
+        /* ── WHO NEEDS ── */
+        #who-needs { background: var(--surface); }
+        .who-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        @media (min-width: 768px) { .who-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        .who-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 24px 20px; transition: all 0.3s ease; text-align: center; }
+        .who-card:hover { transform: translateY(-3px); border-color: var(--red-border); box-shadow: 0 8px 24px rgba(200,16,46,0.08); }
+        .who-icon { width: 73px; height: 73px; margin: 0 auto 14px; display: block; object-fit: contain; }
+        .who-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+        .who-card p { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+        /* ── SPECIALTIES ── */
+        .spec-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 640px) { .spec-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .spec-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        .spec-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: border-color 0.3s, box-shadow 0.3s; }
+        .spec-card.open { border-color: var(--red-border); box-shadow: 0 8px 24px rgba(200,16,46,0.08); }
+        .spec-card.featured { background: var(--red-muted); border-color: var(--red-border); }
+        .spec-card-header { display: flex; align-items: center; gap: 16px; padding: 22px 24px; cursor: pointer; user-select: none; }
+        .spec-card-header:hover { background: rgba(0,0,0,0.015); }
+        .spec-icon { width: 48px; height: 48px; background: var(--red-muted); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+        .spec-card-title { flex: 1; }
+        .spec-card-title h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0; }
+        .spec-card-title p { font-size: 13px; color: var(--text-2); margin: 4px 0 0; line-height: 1.5; }
+        .spec-toggle { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-shrink: 0; }
+        .spec-toggle-btn { width: 28px; height: 28px; border-radius: 50%; background: var(--red-muted); border: 1px solid var(--red-border); display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .spec-toggle-btn svg { width: 14px; height: 14px; stroke: var(--red); transition: transform 0.3s; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+        .spec-toggle span { font-size: 10px; font-weight: 700; color: var(--red); letter-spacing: 0.5px; white-space: nowrap; }
+        .spec-card.open .spec-toggle-btn { background: var(--red); }
+        .spec-card.open .spec-toggle-btn svg { stroke: #fff; transform: rotate(45deg); }
+        .spec-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .spec-card.open .spec-body { max-height: 400px; }
+        .spec-body-inner { padding: 0 24px 22px; border-top: 1px solid var(--border); }
+        .spec-body-inner ul { list-style: none; margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+        .spec-body-inner ul li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-2); line-height: 1.5; }
+        .spec-body-inner ul li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; margin-top: 6px; }
+
+        /* ── DIFFERENTIALS ── */
+        #differentials { background: var(--surface); }
+        .diff-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media (min-width: 640px) { .diff-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .diff-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .diff-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 28px 24px; transition: all 0.3s ease; }
+        .diff-card:hover { border-color: var(--red-border); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(200,16,46,0.08); }
+        .diff-number { font-size: 44px; font-weight: 900; color: var(--red); letter-spacing: -3px; line-height: 1; margin-bottom: 12px; }
+        .diff-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+        .diff-card p { font-size: 13px; color: var(--text-2); line-height: 1.65; }
+
+        /* ── HOW IT WORKS ── */
+        .steps-grid { display: grid; grid-template-columns: 1fr; }
+        @media (min-width: 1024px) { .steps-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        .step-card { padding: 40px 32px; text-align: center; }
+        .step-number { width: 56px; height: 56px; background: linear-gradient(135deg, var(--red-light), var(--red)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; color: #fff; margin: 0 auto 24px; box-shadow: 0 6px 20px rgba(200,16,46,0.3); }
+        .step-card h3 { font-size: 19px; margin-bottom: 12px; color: var(--text); }
+        .step-card p { font-size: 14px; color: var(--text-2); line-height: 1.7; max-width: 260px; margin: 0 auto; }
+
+        /* ── COMPLEX CARE ── */
+        #complex-care { background: var(--surface); }
+        .complex-inner { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center; }
+        @media (min-width: 1024px) { .complex-inner { grid-template-columns: 1fr 1fr; } }
+        .complex-content h2 { margin-bottom: 20px; }
+        .complex-content > p { font-size: 16px; color: var(--text-2); line-height: 1.8; margin-bottom: 28px; }
+        .complex-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+        .tag { background: var(--red-muted); border: 1px solid var(--red-border); color: var(--red); font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 100px; }
+
+        .complex-visual { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 32px; position: relative; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .complex-visual::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red); }
+        .vital-signs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+        .vital-item { background: var(--surface); border-radius: 12px; padding: 18px; border: 1px solid var(--border); text-align: center; }
+        .vital-icon { font-size: 24px; margin-bottom: 8px; }
+        .vital-label { font-size: 12px; color: var(--text-2); font-weight: 500; display: block; margin-bottom: 8px; }
+        .vital-status { display: inline-block; font-size: 11px; font-weight: 700; color: var(--green); background: rgba(22,163,74,0.1); padding: 3px 8px; border-radius: 100px; }
+
+        /* ── TEAM ── */
+        .team-grid { display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 680px; margin: 0 auto; }
+        @media (min-width: 640px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .team-card { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 32px 24px; text-align: center; transition: all 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+        .team-card:hover { border-color: var(--red-border); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(200,16,46,0.1); }
+        .team-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: top; border: 3px solid var(--red-border); margin: 0 auto 20px; display: block; }
+        .team-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+        .team-card .role { font-size: 13px; color: var(--red); font-weight: 600; margin-bottom: 8px; }
+        .team-card .crefito { font-size: 12px; color: var(--text-3); }
+
+        /* ── TESTIMONIALS ── */
+        #testimonials { background: var(--surface); }
+        .test-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 640px) { .test-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .test-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 28px; display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .test-card:hover { border-color: var(--red-border); }
+        .quote-mark { font-size: 42px; font-weight: 900; color: var(--red); line-height: 0.8; margin-bottom: 14px; opacity: 0.4; font-family: Georgia, serif; }
+        .test-stars { display: flex; gap: 2px; margin-bottom: 12px; }
+        .star { color: var(--red); font-size: 13px; }
+        .test-card > p { font-size: 14px; color: var(--text-2); line-height: 1.8; font-style: italic; flex: 1; margin-bottom: 20px; }
+        .test-author { display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--border); padding-top: 16px; }
+        .author-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--red-muted); display: flex; align-items: center; justify-content: center; font-size: 14px; border: 1px solid var(--red-border); flex-shrink: 0; }
+        .author-name { font-size: 14px; font-weight: 700; color: var(--text); }
+        .author-role { font-size: 12px; color: var(--text-3); }
+
+        /* ── FAQ ── */
+        .faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+        .faq-item { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color 0.3s; }
+        .faq-item.open { border-color: var(--red-border); }
+        .faq-question { padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-weight: 600; font-size: 15px; gap: 16px; user-select: none; color: var(--text); }
+        .faq-arrow { color: var(--red); font-size: 14px; transition: transform 0.3s; flex-shrink: 0; }
+        .faq-item.open .faq-arrow { transform: rotate(180deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .faq-item.open .faq-answer { max-height: 300px; }
+        .faq-answer-inner { padding: 0 22px 18px; font-size: 14px; color: var(--text-2); line-height: 1.8; }
+
+        /* ── CTA FINAL ── */
+        #cta-final { text-align: center; background: var(--red); position: relative; overflow: hidden; }
+        #cta-final::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 600px 400px at 50% 50%, rgba(255,255,255,0.06) 0%, transparent 70%); }
+        #cta-final .container { position: relative; z-index: 1; }
+        #cta-final .overline { color: rgba(255,255,255,0.75); }
+        #cta-final h2 { color: #fff; margin-bottom: 16px; }
+        #cta-final > .container > p { font-size: 17px; color: rgba(255,255,255,0.85); max-width: 480px; margin: 0 auto 36px; line-height: 1.7; }
+
+        .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-cta-main { background: #fff; color: var(--red); font-weight: 700; font-size: 16px; padding: 16px 32px; border-radius: 10px; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.25s ease; }
+        .btn-cta-main:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+        .btn-cta-phone { background: transparent; color: #fff; font-weight: 600; font-size: 15px; padding: 16px 28px; border-radius: 10px; border: 1.5px solid rgba(255,255,255,0.4); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.25s ease; }
+        .btn-cta-phone:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.7); }
+
+        /* ── FOOTER ── */
+        footer { background: #111; border-top: 1px solid rgba(255,255,255,0.07); padding: 36px 0; }
+        .footer-inner { display: flex; flex-direction: column; gap: 20px; align-items: center; text-align: center; }
+        @media (min-width: 768px) { .footer-inner { flex-direction: row; justify-content: space-between; text-align: left; } }
+        footer .footer-logo img { height: 36px; width: auto; filter: brightness(0) invert(1); }
+        .footer-info { font-size: 13px; color: #666; line-height: 1.8; }
+
+        /* ── WA FLOAT ── */
+        .wa-float { position: fixed; bottom: 28px; right: 28px; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 999; box-shadow: 0 4px 20px rgba(37,211,102,0.4); transition: all 0.25s ease; text-decoration: none; }
+        .wa-float:hover { transform: scale(1.1); }
+        .wa-float svg { width: 26px; height: 26px; fill: #fff; }
+
+        @media (max-width: 640px) {
+            .hero-ctas { flex-direction: column; }
+            .btn-hero, .btn-hero-outline { justify-content: center; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .btn-cta-main, .btn-cta-phone { justify-content: center; width: 100%; max-width: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+    <div class="container">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <img src="https://www.fisiocardiosaude.com.br/wp-content/uploads/2016/12/logo-Fisiocardio-1.png" alt="Fisiocárdio">
+            </a>
+            <a href="https://wa.me/5548999979242?text=Olá!%20Gostaria%20de%20agendar%20uma%20fisioterapia%20domiciliar." class="btn-red" target="_blank">
+                Agendar pelo WhatsApp
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-slides">
+        <div class="hero-slide active" style="background-image:url('https://www.fisiocardiosaude.com.br/wp-content/uploads/2016/09/fundo.jpg')"></div>
+        <div class="hero-slide" style="background-image:url('https://www.fisiocardiosaude.com.br/wp-content/uploads/2016/12/banner3.jpg')"></div>
+        <div class="hero-slide" style="background-image:url('https://www.fisiocardiosaude.com.br/wp-content/uploads/2016/12/banner2.jpg')"></div>
+        <div class="hero-slide" style="background-image:url('https://www.fisiocardiosaude.com.br/wp-content/uploads/2016/12/banner1.jpg')"></div>
+    </div>
+    <div class="hero-dots">
+        <button class="hero-dot active" onclick="goToSlide(0)"></button>
+        <button class="hero-dot" onclick="goToSlide(1)"></button>
+        <button class="hero-dot" onclick="goToSlide(2)"></button>
+        <button class="hero-dot" onclick="goToSlide(3)"></button>
+    </div>
+    <div class="container">
+        <div class="hero-content">
+            <span class="overline">Fisioterapia Domiciliar em Florianópolis</span>
+            <h1>Recuperação e Qualidade de Vida no Conforto da Sua Casa</h1>
+            <p>Fisioterapeutas especializadas vão até você, com monitoramento completo de sinais vitais, atendimento humanizado e experiência em casos de alta complexidade.</p>
+            <div class="hero-ctas">
+                <a href="https://wa.me/5548999979242?text=Olá!%20Gostaria%20de%20agendar%20uma%20fisioterapia%20domiciliar." class="btn-hero" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Agendar Atendimento
+                </a>
+                <a href="tel:4899979242" class="btn-hero-outline">📞 (48) 9 9997-9242</a>
+            </div>
+            <div class="trust-badges">
+                <div class="trust-badge"><span class="dot"></span>CREFITO Certificadas</div>
+                <div class="trust-badge"><span class="dot"></span>Florianópolis e Região</div>
+                <div class="trust-badge"><span class="dot"></span>Alta Complexidade</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- QUEM ATENDEMOS -->
+<section id="who-needs">
+    <div class="container">
+        <div class="section-header">
+            <span class="overline">Quem Atendemos</span>
+            <h2>Fisioterapia domiciliar para quem precisa de cuidado especializado em casa</h2>
+            <div class="accent-line-center"></div>
+            <p>Levamos tratamento de qualidade até você. Atendemos após cirurgias, durante internação domiciliar ou em condições crônicas que dificultam o deslocamento.</p>
+        </div>
+        <div class="who-grid">
+            <div class="who-card"><img class="who-icon" src="https://www.fisiocardiosaude.com.br/wp-content/uploads/2026/05/ChatGPT-Image-12-de-mai.-de-2026-13_12_31.png" alt="Idosos"><h3>Idosos com Limitação de Mobilidade</h3><p>Reabilitação geriátrica especializada no conforto do lar, com foco em autonomia e qualidade de vida.</p></div>
+            <div class="who-card"><img class="who-icon" src="https://www.fisiocardiosaude.com.br/wp-content/uploads/2026/05/ChatGPT-Image-12-de-mai.-de-2026-13_13_42.png" alt="Cardiopatas"><h3>Cardiopatas e Pneumopatas</h3><p>Fisioterapia cardiorrespiratória para coração e pulmão, com monitoramento rigoroso de sinais vitais.</p></div>
+            <div class="who-card"><img class="who-icon" src="https://www.fisiocardiosaude.com.br/wp-content/uploads/2026/05/ChatGPT-Image-12-de-mai.-de-2026-13_15_33.png" alt="Neurológica"><h3>Pós-AVC e Doenças Neurológicas</h3><p>Recuperação motora e funcional após AVC, Parkinson, esclerose múltipla e outras condições.</p></div>
+            <div class="who-card"><img class="who-icon" src="https://www.fisiocardiosaude.com.br/wp-content/uploads/2026/05/ChatGPT-Image-12-de-mai.-de-2026-13_17_21.png" alt="Alta Hospitalar"><h3>Alta Hospitalar Recente</h3><p>Continuidade do tratamento em casa, sem precisar retornar ao hospital.</p></div>
+            <div class="who-card"><img class="who-icon" src="https://www.fisiocardiosaude.com.br/wp-content/uploads/2026/05/ChatGPT-Image-12-de-mai.-de-2026-13_18_46.png" alt="DPOC"><h3>DPOC e Doenças Respiratórias</h3><p>Fisioterapia respiratória para melhorar função pulmonar e qualidade de vida no dia a dia.</p></div>
+            <div class="who-card"><img class="who-icon" src="https://www.fisiocardiosaude.com.br/wp-content/uploads/2026/05/ChatGPT-Image-12-de-mai.-de-2026-13_20_01.png" alt="Pacientes Acamados"><h3>Pacientes Acamados</h3><p>Cuidado integral para pacientes com alta dependência, incluindo prevenção de complicações.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ESPECIALIDADES -->
+<section id="specialties">
+    <div class="container">
+        <div class="section-header">
+            <span class="overline">Especialidades</span>
+            <h2>Tratamento especializado para cada condição</h2>
+            <div class="accent-line-center"></div>
+            <p>Nossa equipe é treinada em múltiplas especialidades para oferecer o cuidado mais adequado à sua necessidade: em casa, no hospital ou na clínica.</p>
+        </div>
+        <div class="spec-grid">
+
+            <div class="spec-card" onclick="toggleSpec(this)">
+                <div class="spec-card-header">
+                    <div class="spec-icon">🫀</div>
+                    <div class="spec-card-title">
+                        <h3>Cardiorrespiratória</h3>
+                        <p>Coração, pulmão e sistema respiratório</p>
+                    </div>
+                    <div class="spec-toggle"><div class="spec-toggle-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span>Saiba Mais</span></div>
+                </div>
+                <div class="spec-body"><div class="spec-body-inner"><ul>
+                    <li>Doença Pulmonar Obstrutiva Crônica (DPOC)</li>
+                    <li>Insuficiência cardíaca e cardiopatias</li>
+                    <li>Reabilitação pós-cirurgia cardíaca</li>
+                    <li>Asma e bronquite crônica</li>
+                    <li>Fibrose pulmonar</li>
+                    <li>Higiene brônquica e fisioterapia respiratória</li>
+                    <li>Treino de musculatura respiratória</li>
+                </ul></div></div>
+            </div>
+
+            <div class="spec-card" onclick="toggleSpec(this)">
+                <div class="spec-card-header">
+                    <div class="spec-icon">🧠</div>
+                    <div class="spec-card-title">
+                        <h3>Neurológica</h3>
+                        <p>Reabilitação do sistema nervoso central e periférico</p>
+                    </div>
+                    <div class="spec-toggle"><div class="spec-toggle-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span>Saiba Mais</span></div>
+                </div>
+                <div class="spec-body"><div class="spec-body-inner"><ul>
+                    <li>Reabilitação pós-AVC (acidente vascular cerebral)</li>
+                    <li>Doença de Parkinson</li>
+                    <li>Esclerose múltipla</li>
+                    <li>Lesão medular</li>
+                    <li>Paralisia cerebral em adultos</li>
+                    <li>Neuropatias periféricas</li>
+                    <li>Recuperação motora e funcional</li>
+                </ul></div></div>
+            </div>
+
+            <div class="spec-card" onclick="toggleSpec(this)">
+                <div class="spec-card-header">
+                    <div class="spec-icon">🦴</div>
+                    <div class="spec-card-title">
+                        <h3>Ortopédica</h3>
+                        <p>Músculos, ossos, articulações e tendões</p>
+                    </div>
+                    <div class="spec-toggle"><div class="spec-toggle-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span>Saiba Mais</span></div>
+                </div>
+                <div class="spec-body"><div class="spec-body-inner"><ul>
+                    <li>Reabilitação pós-cirúrgica (quadril, joelho, ombro)</li>
+                    <li>Fraturas e pós-operatório ortopédico</li>
+                    <li>Artroses e artrites</li>
+                    <li>Lesões musculoesqueléticas</li>
+                    <li>Lombalgias e cervicalgias</li>
+                    <li>Fortalecimento muscular e alongamento</li>
+                </ul></div></div>
+            </div>
+
+            <div class="spec-card" onclick="toggleSpec(this)">
+                <div class="spec-card-header">
+                    <div class="spec-icon">👴</div>
+                    <div class="spec-card-title">
+                        <h3>Geriátrica</h3>
+                        <p>Saúde e autonomia do adulto maior</p>
+                    </div>
+                    <div class="spec-toggle"><div class="spec-toggle-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span>Saiba Mais</span></div>
+                </div>
+                <div class="spec-body"><div class="spec-body-inner"><ul>
+                    <li>Prevenção e reabilitação pós-queda</li>
+                    <li>Fortalecimento muscular para idosos</li>
+                    <li>Treino de equilíbrio e marcha</li>
+                    <li>Sarcopenia e fragilidade muscular</li>
+                    <li>Osteoporose</li>
+                    <li>Manutenção da independência funcional</li>
+                    <li>Atendimento a pacientes com demência e Alzheimer</li>
+                </ul></div></div>
+            </div>
+
+            <div class="spec-card" onclick="toggleSpec(this)">
+                <div class="spec-card-header">
+                    <div class="spec-icon">⚡</div>
+                    <div class="spec-card-title">
+                        <h3>Reabilitação Autonômica</h3>
+                        <p>Tratamento para síncopes e disfunções autonômicas</p>
+                    </div>
+                    <div class="spec-toggle"><div class="spec-toggle-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span>Saiba Mais</span></div>
+                </div>
+                <div class="spec-body"><div class="spec-body-inner"><ul>
+                    <li>Síncope vasovagal</li>
+                    <li>Hipotensão ortostática</li>
+                    <li>Disautonomia</li>
+                    <li>Protocolo de reabilitação autonômica progressiva</li>
+                    <li>Treino postural e de tolerância ortostática</li>
+                </ul></div></div>
+            </div>
+
+            <div class="spec-card featured" onclick="toggleSpec(this)">
+                <div class="spec-card-header">
+                    <div class="spec-icon">🩺</div>
+                    <div class="spec-card-title">
+                        <h3>Monitoramento de Sinais Vitais</h3>
+                        <p>Presente em todos os atendimentos</p>
+                    </div>
+                    <div class="spec-toggle"><div class="spec-toggle-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span>Saiba Mais</span></div>
+                </div>
+                <div class="spec-body"><div class="spec-body-inner"><ul>
+                    <li>Frequência cardíaca</li>
+                    <li>Pressão arterial</li>
+                    <li>Frequência respiratória</li>
+                    <li>Saturação arterial de oxigênio (SpO₂)</li>
+                    <li>Relatório de evolução para o médico responsável quando necessário</li>
+                </ul></div></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section id="differentials">
+    <div class="container">
+        <div class="section-header">
+            <span class="overline">Por que a Fisiocárdio</span>
+            <h2>Diferenciais que fazem a diferença no seu tratamento</h2>
+            <div class="accent-line-center"></div>
+        </div>
+        <div class="diff-grid">
+            <div class="diff-card"><div class="diff-number">01</div><h3>Monitoramento Completo</h3><p>Sinais vitais controlados em cada sessão: FC, PA, FR e saturação de O₂. Com feedback médico quando necessário.</p></div>
+            <div class="diff-card"><div class="diff-number">02</div><h3>Equipe Especializada</h3><p>Fisioterapeutas com CREFITO ativo, experiência hospitalar em UTI e amplo histórico em atendimento domiciliar.</p></div>
+            <div class="diff-card"><div class="diff-number">03</div><h3>Alta Complexidade</h3><p>Experiência com traqueostomizados, CPAP, BIPAP e oxigenioterapia. Casos que exigem preparo técnico avançado.</p></div>
+            <div class="diff-card"><div class="diff-number">04</div><h3>Cuidado Humanizado</h3><p>Atendimento com carinho, responsabilidade e dedicação total. Disponíveis inclusive em feriados e fins de semana quando necessário.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section id="how-it-works" style="background:var(--surface);">
+    <div class="container">
+        <div class="section-header">
+            <span class="overline">Como Funciona</span>
+            <h2>Três passos para começar seu tratamento</h2>
+            <div class="accent-line-center"></div>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card"><div class="step-number">1</div><h3>Entre em Contato</h3><p>Ligue ou envie mensagem pelo WhatsApp. Entendemos suas necessidades e indicamos o atendimento mais adequado para você.</p></div>
+            <div class="step-card"><div class="step-number">2</div><h3>Agende sua Sessão</h3><p>Marcamos sua consulta com a fisioterapeuta designada, no horário e local mais convenientes para você.</p></div>
+            <div class="step-card"><div class="step-number">3</div><h3>Receba o Tratamento</h3><p>No local, data e horário combinados, nossa profissional irá conduzir o atendimento com todo o carinho e cuidado.</p></div>
+        </div>
+        <div style="text-align:center; margin-top:44px;">
+            <a href="https://wa.me/5548999979242?text=Olá!%20Gostaria%20de%20agendar%20uma%20fisioterapia%20domiciliar." class="btn-hero" target="_blank">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Quero Agendar Agora
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CUIDADOS COMPLEXOS -->
+<section id="complex-care">
+    <div class="container">
+        <div class="complex-inner">
+            <div class="complex-content">
+                <span class="overline">Cuidados Intensivos Domiciliares</span>
+                <h2>Preparados para os casos mais complexos</h2>
+                <div class="accent-line"></div>
+                <p>Nossa equipe é capacitada para o atendimento domiciliar de pacientes de alta complexidade, incluindo pacientes que utilizam suporte ventilatório ou que precisam de cuidados especializados contínuos.</p>
+                <div class="complex-tags">
+                    <span class="tag">Traqueostomizados</span>
+                    <span class="tag">CPAP</span>
+                    <span class="tag">BIPAP</span>
+                    <span class="tag">Oxigenioterapia</span>
+                    <span class="tag">UTI Domiciliar</span>
+                    <span class="tag">Ventilação Mecânica</span>
+                </div>
+                <a href="https://wa.me/5548999979242?text=Olá!%20Tenho%20um%20paciente%20de%20alta%20complexidade%20e%20preciso%20de%20fisioterapia%20domiciliar." class="btn-red" target="_blank">Consultar disponibilidade</a>
+            </div>
+            <div class="complex-visual">
+                <p class="overline" style="margin-bottom:20px;">Monitoramento em Cada Sessão</p>
+                <div class="vital-signs">
+                    <div class="vital-item"><div class="vital-icon">❤️</div><span class="vital-label">Frequência Cardíaca</span><span class="vital-status">● Monitorado</span></div>
+                    <div class="vital-item"><div class="vital-icon">🩺</div><span class="vital-label">Pressão Arterial</span><span class="vital-status">● Monitorado</span></div>
+                    <div class="vital-item"><div class="vital-icon">🫁</div><span class="vital-label">Freq. Respiratória</span><span class="vital-status">● Monitorado</span></div>
+                    <div class="vital-item"><div class="vital-icon">💧</div><span class="vital-label">Saturação de O₂</span><span class="vital-status">● Monitorado</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EQUIPE -->
+<section id="team" style="background:var(--surface);">
+    <div class="container">
+        <div class="section-header">
+            <span class="overline">Nossa Equipe</span>
+            <h2>Profissionais que cuidam de você com dedicação</h2>
+            <div class="accent-line-center"></div>
+            <p>Fisioterapeutas registradas no CREFITO, com experiência hospitalar e domiciliar, focadas em resultados e atendimento humanizado.</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <img class="team-photo" src="https://www.fisiocardiosaude.com.br/wp-content/uploads/2016/12/samira.jpg" alt="Samira Garcia Anzolin">
+                <h3>Samira Garcia Anzolin</h3>
+                <p class="role">Fisioterapeuta</p>
+                <p class="crefito">CREFITO 53271-F</p>
+            </div>
+            <div class="team-card">
+                <img class="team-photo" src="https://www.fisiocardiosaude.com.br/wp-content/uploads/2016/12/voldiana.jpg" alt="Voldiana Lúcia Pozzebon Schneider">
+                <h3>Voldiana Lúcia Pozzebon Schneider</h3>
+                <p class="role">Fisioterapeuta</p>
+                <p class="crefito">CREFITO 80155-F</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section id="testimonials">
+    <div class="container">
+        <div class="section-header">
+            <span class="overline">Depoimentos</span>
+            <h2>O que dizem nossos pacientes e familiares</h2>
+            <div class="accent-line-center"></div>
+            <p>A satisfação de quem confiou no nosso cuidado é nossa maior realização profissional.</p>
+        </div>
+        <div class="test-grid">
+            <div class="test-card">
+                <div class="quote-mark">"</div>
+                <div class="test-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+                <p>Conhecemos a Voldiana há quase uma década. Prestou serviços primeiramente ao meu pai, cardíaco, e atualmente à minha mãe. A experiência com pacientes de alta complexidade em UTIs torna-a uma profissional de excelência. Para quem passa por momentos difíceis de saúde, posso recomendar com a certeza de que estarão em ótimas mãos.</p>
+                <div class="test-author"><div class="author-avatar">👤</div><div><p class="author-name">Laura H. A. P.</p><p class="author-role">Familiar de Paciente</p></div></div>
+            </div>
+            <div class="test-card">
+                <div class="quote-mark">"</div>
+                <div class="test-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+                <p>Conheço essa clínica há anos. Prestou excelentes trabalhos enquanto minha vó estava internada no hospital, assim como no atendimento domiciliar que durou em torno de 8 anos. Os profissionais têm experiência no trato com pessoas idosas e orientam a família nas questões que envolvem a terceira idade. Recomendo!</p>
+                <div class="test-author"><div class="author-avatar">👤</div><div><p class="author-name">Chirlei</p><p class="author-role">Familiar de Paciente</p></div></div>
+            </div>
+            <div class="test-card">
+                <div class="quote-mark">"</div>
+                <div class="test-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+                <p>Nestes quase dois anos que pratico a fisio três vezes por semana, sinto-me muito bem. Tanto a Samira quanto a Cristiana são ótimas profissionais, muito competentes, educadas e carinhosas.</p>
+                <div class="test-author"><div class="author-avatar">👤</div><div><p class="author-name">Cesar F. K.</p><p class="author-role">Paciente</p></div></div>
+            </div>
+            <div class="test-card">
+                <div class="quote-mark">"</div>
+                <div class="test-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+                <p>A fisioterapia está sendo extremamente importante para a saúde da minha mãe. Graças ao tratamento ela consegue ter uma melhor qualidade de vida. A fisioterapeuta tornou-se uma pessoa de confiança do paciente. É um trabalho qualificado e que eu recomendo.</p>
+                <div class="test-author"><div class="author-avatar">👤</div><div><p class="author-name">Patrícia M. L.</p><p class="author-role">Familiar de Paciente</p></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--surface);">
+    <div class="container">
+        <div class="section-header">
+            <span class="overline">Dúvidas Frequentes</span>
+            <h2>Perguntas e respostas</h2>
+            <div class="accent-line-center"></div>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">Quais regiões de Florianópolis vocês atendem?<span class="faq-arrow">▼</span></div>
+                <div class="faq-answer"><div class="faq-answer-inner">Atendemos Florianópolis e região. Nossa clínica está localizada na SC-401, 121, Itacorubi. Para confirmar disponibilidade na sua área, entre em contato pelo WhatsApp ou telefone.</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">Atendem planos de saúde?<span class="faq-arrow">▼</span></div>
+                <div class="faq-answer"><div class="faq-answer-inner">Entre em contato conosco para verificar as opções de atendimento e convênios disponíveis. Podemos orientá-lo sobre as melhores alternativas para o seu caso específico.</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">Qual a frequência ideal de sessões?<span class="faq-arrow">▼</span></div>
+                <div class="faq-answer"><div class="faq-answer-inner">A frequência varia conforme a condição de cada paciente. Após avaliação, a fisioterapeuta indicará a frequência mais adequada, em geral 2 a 3 sessões semanais para reabilitação ativa.</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">Atendem pacientes com traqueostomia ou ventilação mecânica domiciliar?<span class="faq-arrow">▼</span></div>
+                <div class="faq-answer"><div class="faq-answer-inner">Sim. Nossa equipe é capacitada para pacientes traqueostomizados e que fazem uso de suporte ventilatório (CPAP, BIPAP e oxigenioterapia). Temos experiência com casos de alta complexidade adquirida em UTI hospitalar.</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">Como funciona o monitoramento de sinais vitais?<span class="faq-arrow">▼</span></div>
+                <div class="faq-answer"><div class="faq-answer-inner">Em todos os atendimentos realizamos controle rigoroso de frequência cardíaca, pressão arterial, frequência respiratória e saturação arterial de oxigênio. Com esse acompanhamento, o paciente tem maior segurança e a Fisiocárdio pode fornecer feedback ao médico responsável quando necessário.</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">Qual o horário de atendimento?<span class="faq-arrow">▼</span></div>
+                <div class="faq-answer"><div class="faq-answer-inner">Atendemos de segunda a sexta, das 8h às 19h. Para casos urgentes ou de alta complexidade, consulte disponibilidade diretamente pelo WhatsApp.</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final">
+    <div class="container">
+        <span class="overline">Dê o primeiro passo</span>
+        <h2>Fisioterapia de qualidade no conforto da sua casa</h2>
+        <p>Entre em contato agora e agende o atendimento domiciliar para você ou seu familiar. Estamos prontos para ajudar.</p>
+        <div class="cta-buttons">
+            <a href="https://wa.me/5548999979242?text=Olá!%20Gostaria%20de%20agendar%20uma%20fisioterapia%20domiciliar." class="btn-cta-main" target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Agendar pelo WhatsApp
+            </a>
+            <a href="tel:4899979242" class="btn-cta-phone">📞 (48) 9 9997-9242</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo"><img src="https://www.fisiocardiosaude.com.br/wp-content/uploads/2016/12/logo-Fisiocardio-1.png" alt="Fisiocárdio"></div>
+            <div class="footer-info">SC-401, 121, Itacorubi, Florianópolis<br>Tel: (48) 9 9997-9242 | Seg–Sex, 8h às 19h</div>
+            <div class="footer-info">Fisioterapia Domiciliar em Florianópolis<br>© 2026 Fisiocárdio. Todos os direitos reservados.</div>
+        </div>
+    </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/5548999979242?text=Olá!%20Gostaria%20de%20agendar%20uma%20fisioterapia%20domiciliar." class="wa-float" target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40));
+
+    // FAQ
+    function toggleFaq(el) {
+        const item = el.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+    }
+
+    // Especialidades accordion
+    function toggleSpec(card) {
+        card.classList.toggle('open');
+    }
+
+    // Hero Slideshow
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-dot');
+
+    function goToSlide(n) {
+        slides[currentSlide].classList.remove('active');
+        dots[currentSlide].classList.remove('active');
+        currentSlide = n;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    }
+
+    setInterval(() => goToSlide((currentSlide + 1) % slides.length), 5000);
+</script>
+</body>
+</html>
